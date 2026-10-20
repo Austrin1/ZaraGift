@@ -3,150 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zara üçün ❤️</title>
+    <title>Zara üçün Özəl Sürpriz ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #ffe6ea 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.2);
-            border: 2px solid #ffc0cb;
-            width: 100%;
-            max-width: 400px;
-            padding: 35px 25px;
-            text-align: center;
+            background: radial-gradient(circle, #fff0f5 0%, #ffd1dc 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
             position: relative;
         }
 
-        .icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: pulse 1.6s infinite;
+        /* Canvas background for particles */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 450px;
         }
 
-        h1 {
-            color: #ff1493;
-            font-size: 26px;
-            margin-bottom: 10px;
+        /* Gift Box Styles */
+        .gift-wrapper {
+            cursor: pointer;
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
 
-        .intro {
-            color: #777;
+        .gift-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(255, 20, 147, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ribbon vertical & horizontal */
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 28px;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .lid {
+            position: absolute;
+            top: -12px;
+            width: 152px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff8da1, #ff1493);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            z-index: 2;
+            transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            justify-content: center;
+        }
+
+        .lid::before {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 100%;
+            background: #ffffff;
+        }
+
+        .bow {
+            position: absolute;
+            top: -24px;
+            width: 50px;
+            height: 24px;
+            background: #ffffff;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hint-text {
+            color: #d81b60;
             font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            animation: bounce 1.5s infinite;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 182, 193, 0.6);
+            border-radius: 28px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.25);
+            transform: scale(0.8) translateY(50px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute;
+            width: 90%;
+        }
+
+        .card.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .card h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 38px;
+            color: #ff1493;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
             margin-bottom: 25px;
         }
 
-        .btn {
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-primary {
             background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: white;
+            color: #fff;
             border: none;
-            padding: 14px 32px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 5px 18px rgba(255, 20, 147, 0.35);
+            box-shadow: 0 6px 18px rgba(255, 20, 147, 0.3);
             transition: all 0.3s ease;
-            outline: none;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(255, 20, 147, 0.45);
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 22px rgba(255, 20, 147, 0.4);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .message-box {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.6s ease-in-out;
-            background: #fff5f7;
-            border-radius: 16px;
-            margin-top: 0;
-            padding: 0 20px;
-            border: 1px dashed #ffb6c1;
-        }
-
-        .message-box.open {
-            max-height: 300px;
-            opacity: 1;
-            margin-top: 25px;
-            padding: 20px;
-        }
-
-        .message-box p {
-            color: #4a4a4a;
+        .response-msg {
+            margin-top: 18px;
+            font-weight: 600;
+            color: #d81b60;
             font-size: 15px;
-            line-height: 1.6;
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
 
-        .signature {
-            margin-top: 12px;
-            font-weight: bold;
-            color: #ff1493;
-            font-size: 16px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .open .lid {
+            transform: translateY(-80px) rotate(-15deg);
+            opacity: 0;
+        }
+
+        .open .gift-wrapper {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="icon">🌸</div>
-        <h1>Əziz Zara ❤️</h1>
-        <p class="intro">Sənə kiçik bir sürprizim var...</p>
-        
-        <button class="btn" onclick="toggleGift()">Hədiyyəni Aç ✨</button>
-        
-        <div class="message-box" id="secretMessage">
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="container" id="mainContainer">
+        <!-- Gift Box Area -->
+        <div class="gift-wrapper" onclick="openBox()">
+            <div class="gift-box">
+                <div class="lid">
+                    <div class="bow"></div>
+                </div>
+            </div>
+            <p class="hint-text">Qutunun üzərinə toxun ✨</p>
+        </div>
+
+        <!-- Hidden Card revealed on click -->
+        <div class="card" id="giftCard">
+            <h1>Əziz Zara 💖</h1>
             <p>
-                Zara, səni incitdiyim üçün həqiqətən çox təəssüf edirəm. Səninlə olan dostluğumuz mənim üçün çox dəyərlidir və gülüşünü görmək hər şeydən önəmlidir.
-                <br><br>
-                Ümid edirəm ki, məni bağışlayarsan! 🥺💖
+                Səni incitdiyim hər bir an üçün həqiqətən çox təəssüf edirəm. Sənin dostluğun, gülüşün və varlığın mənim üçün hər şeydən önəmlidir. Ümid edirəm ki, kiçik xətalarımı bağışlayarsan! ✨
             </p>
-            <div class="signature">— Sənin dostun</div>
+            <div class="btn-group">
+                <button class="btn-primary" onclick="acceptApology()">Məni bağışladın? 🥰</button>
+            </div>
+            <div class="response-msg" id="thankYouMsg">
+                Çox təşəkkür edirəm! Sən dünyadakı ən yaxşı dostsan! 🌸💖
+            </div>
         </div>
     </div>
 
     <script>
-        function toggleGift() {
-            const msg = document.getElementById('secretMessage');
-            const btn = document.querySelector('.btn');
+        // Open Gift Box Logic
+        function openBox() {
+            const container = document.getElementById('mainContainer');
+            const card = document.getElementById('giftCard');
             
-            if (msg.classList.contains('open')) {
-                msg.classList.remove('open');
-                btn.textContent = 'Hədiyyəni Aç ✨';
-            } else {
-                msg.classList.add('open');
-                btn.textContent = 'Bağla 💖';
+            container.classList.add('open');
+            setTimeout(() => {
+                card.classList.add('active');
+                createExplosion();
+            }, 300);
+        }
+
+        function acceptApology() {
+            const msg = document.getElementById('thankYouMsg');
+            msg.style.display = 'block';
+            createExplosion();
+        }
+
+        // Floating Hearts & Petals Canvas
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffffff'];
+
+        class Particle {
+            constructor(x, y, isBurst = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || (isBurst ? canvas.height / 2 : canvas.height + 20);
+                this.size = Math.random() * 12 + 6;
+                this.speedY = isBurst ? (Math.random() - 0.5) * 10 : -Math.random() * 1.8 - 0.5;
+                this.speedX = isBurst ? (Math.random() - 0.5) * 10 : Math.random() * 1 - 0.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.isBurst = isBurst;
+                this.rotation = Math.random() * 360;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += 1;
+
+                if (this.isBurst) {
+                    this.opacity -= 0.015;
+                } else if (this.y < -20) {
+                    this.y = canvas.height + 20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = this.color;
+                
+                // Draw Heart
+                ctx.beginPath();
+                const topCurveHeight = this.size * 0.3;
+                ctx.moveTo(0, topCurveHeight);
+                ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
             }
         }
-    </script>
 
+        // Initial continuous background particles
+        for (let i = 0; i < 35; i++) {
+            particles.push(new Particle());
+        }
+
+        function createExplosion() {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(canvas.width / 2, canvas.height / 2, true));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].isBurst && particles[i].opacity <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
