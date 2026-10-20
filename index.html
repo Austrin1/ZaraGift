@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zara üçün ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe6ea 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.2);
+            border: 2px solid #ffc0cb;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 1.6s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(255, 20, 147, 0.35);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(255, 20, 147, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .message-box {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s ease-in-out;
+            background: #fff5f7;
+            border-radius: 16px;
+            margin-top: 0;
+            padding: 0 20px;
+            border: 1px dashed #ffb6c1;
+        }
+
+        .message-box.open {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 25px;
+            padding: 20px;
+        }
+
+        .message-box p {
+            color: #4a4a4a;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .signature {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #ff1493;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon">🌸</div>
+        <h1>Əziz Zara ❤️</h1>
+        <p class="intro">Sənə kiçik bir sürprizim var...</p>
+        
+        <button class="btn" onclick="toggleGift()">Hədiyyəni Aç ✨</button>
+        
+        <div class="message-box" id="secretMessage">
+            <p>
+                Zara, səni incitdiyim üçün həqiqətən çox təəssüf edirəm. Səninlə olan dostluğumuz mənim üçün çox dəyərlidir və gülüşünü görmək hər şeydən önəmlidir.
+                <br><br>
+                Ümid edirəm ki, məni bağışlayarsan! 🥺💖
+            </p>
+            <div class="signature">— Sənin dostun</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleGift() {
+            const msg = document.getElementById('secretMessage');
+            const btn = document.querySelector('.btn');
+            
+            if (msg.classList.contains('open')) {
+                msg.classList.remove('open');
+                btn.textContent = 'Hədiyyəni Aç ✨';
+            } else {
+                msg.classList.add('open');
+                btn.textContent = 'Bağla 💖';
+            }
+        }
+    </script>
+
+</body>
+</html>
