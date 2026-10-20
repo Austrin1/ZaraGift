@@ -3,275 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zara üçün Özəl Sürpriz ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Zara üçün Sehrli Sürpriz ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
             min-height: 100vh;
+            background: radial-gradient(circle at center, #fff0f5 0%, #ffc0cb 50%, #ffb6c1 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle, #fff0f5 0%, #ffd1dc 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
         }
 
-        /* Canvas background for particles */
-        #particleCanvas {
-            position: absolute;
+        /* Fullscreen Canvas for Background Particles & Fireworks */
+        #bgCanvas {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
+            z-index: 1;
         }
 
-        .container {
+        .main-wrapper {
             position: relative;
             z-index: 10;
+            width: 100%;
+            max-width: 520px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            width: 100%;
-            max-width: 450px;
         }
 
-        /* Gift Box Styles */
-        .gift-wrapper {
-            cursor: pointer;
-            perspective: 1000px;
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .gift-wrapper:hover {
-            transform: scale(1.05);
-        }
-
-        .gift-box {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            background: linear-gradient(135deg, #ff69b4, #ff1493);
+        /* Interactive Magic Envelope */
+        .envelope-container {
+            width: 280px;
+            height: 190px;
+            background: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(255, 20, 147, 0.35);
+            position: relative;
+            box-shadow: 0 20px 45px rgba(255, 20, 147, 0.25);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             justify-content: center;
             align-items: center;
+            border: 2px solid #ffe4e1;
         }
 
-        /* Ribbon vertical & horizontal */
-        .gift-box::before {
-            content: '';
-            position: absolute;
-            width: 28px;
-            height: 100%;
-            background: #ffffff;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        .envelope-container:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 20, 147, 0.35);
         }
 
-        .gift-box::after {
-            content: '';
+        /* Envelope Flap Top */
+        .envelope-flap {
             position: absolute;
-            width: 100%;
-            height: 28px;
-            background: #ffffff;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-top: 105px solid #ffb6c1;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 3;
         }
 
-        .lid {
+        /* Wax Seal Stamp */
+        .wax-seal {
             position: absolute;
-            top: -12px;
-            width: 152px;
-            height: 35px;
-            background: linear-gradient(135deg, #ff8da1, #ff1493);
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            z-index: 2;
-            transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ff1493, #c71585);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 26px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 4;
+            border: 2px solid #ffffff;
+            animation: pulseGlow 2s infinite;
         }
 
-        .lid::before {
-            content: '';
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 20, 147, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(255, 20, 147, 0.9); }
+        }
+
+        .envelope-hint {
             position: absolute;
-            width: 28px;
-            height: 100%;
-            background: #ffffff;
-        }
-
-        .bow {
-            position: absolute;
-            top: -24px;
-            width: 50px;
-            height: 24px;
-            background: #ffffff;
-            border-radius: 50% 50% 0 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .hint-text {
+            bottom: -45px;
             color: #d81b60;
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.5px;
-            animation: bounce 1.5s infinite;
-            margin-top: 15px;
-            text-align: center;
+            animation: bounceText 1.6s infinite;
         }
 
-        @keyframes bounce {
+        @keyframes bounceText {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
 
-        /* Glassmorphism Card */
-        .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 182, 193, 0.6);
+        /* Letter Reveal Glassmorphism Card */
+        .letter-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 182, 193, 0.8);
             border-radius: 28px;
-            padding: 35px 25px;
+            padding: 35px 30px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.25);
-            transform: scale(0.8) translateY(50px);
+            box-shadow: 0 25px 60px rgba(255, 20, 147, 0.25);
+            width: 100%;
+            display: none;
             opacity: 0;
-            pointer-events: none;
+            transform: translateY(30px) scale(0.95);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: absolute;
-            width: 90%;
         }
 
-        .card.active {
-            transform: scale(1) translateY(0);
+        .letter-card.active {
+            display: block;
             opacity: 1;
-            pointer-events: auto;
-            position: relative;
+            transform: translateY(0) scale(1);
         }
 
-        .card h1 {
+        .title {
             font-family: 'Dancing Script', cursive;
-            font-size: 38px;
+            font-size: 42px;
             color: #ff1493;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
-        .card p {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.7;
+        .typing-container {
+            font-family: 'Playfair Display', serif;
+            color: #4a4a4a;
+            font-size: 16px;
+            line-height: 1.8;
+            min-height: 120px;
             margin-bottom: 25px;
+            text-align: left;
+            background: #fff8f9;
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 4px solid #ff69b4;
         }
 
-        .btn-group {
+        /* Action Buttons */
+        .btn-wrapper {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 50px;
         }
 
-        .btn-primary {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 14px;
+        .btn {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 15px;
             font-weight: 600;
+            border: none;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 20, 147, 0.3);
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 10px 22px rgba(255, 20, 147, 0.4);
+        .btn-yes {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.35);
         }
 
-        .response-msg {
-            margin-top: 18px;
-            font-weight: 600;
-            color: #d81b60;
-            font-size: 15px;
+        .btn-yes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 25px rgba(255, 20, 147, 0.5);
+        }
+
+        .btn-no {
+            background: #ffffff;
+            color: #ff1493;
+            border: 2px solid #ffc0cb;
+            position: absolute;
+            right: 20px;
+        }
+
+        /* Celebration Screen */
+        .celebration-msg {
             display: none;
-            animation: fadeIn 0.5s ease;
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #ff1493;
+            animation: popIn 0.6s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .open .lid {
-            transform: translateY(-80px) rotate(-15deg);
-            opacity: 0;
-        }
-
-        .open .gift-wrapper {
-            display: none;
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particleCanvas"></canvas>
+    <canvas id="bgCanvas"></canvas>
 
-    <div class="container" id="mainContainer">
-        <!-- Gift Box Area -->
-        <div class="gift-wrapper" onclick="openBox()">
-            <div class="gift-box">
-                <div class="lid">
-                    <div class="bow"></div>
-                </div>
-            </div>
-            <p class="hint-text">Qutunun üzərinə toxun ✨</p>
+    <div class="main-wrapper">
+        <!-- Interactive Envelope -->
+        <div class="envelope-container" id="envelope" onclick="openEnvelope()">
+            <div class="envelope-flap" id="flap"></div>
+            <div class="wax-seal">Z</div>
+            <div class="envelope-hint">Zərfə toxun və aç ✨</div>
         </div>
 
-        <!-- Hidden Card revealed on click -->
-        <div class="card" id="giftCard">
-            <h1>Əziz Zara 💖</h1>
-            <p>
-                Salam. Düzünü desəm, heç bir xüsusi səbəb yox idi, sadəcə həmin an bilərəkdən cavab yazmadım. Amma xətrinə dəyəcəyini düşünməmişdim, incitmək kimi bir niyyətim yox idi. Bağışla mejbursan onsuzda 😂 bideki hediyevide götürmeyi unutma 😁 ✨
-            </p>
-            <div class="btn-group">
-                <button class="btn-primary" onclick="acceptApology()">Məni bağışladın? 🥰</button>
+        <!-- Hidden Letter Card -->
+        <div class="letter-card" id="letterCard">
+            <h1 class="title">Əziz Zara 💖</h1>
+            
+            <div class="typing-container" id="typewriterText"></div>
+
+            <div class="btn-wrapper" id="btnGroup">
+                <button class="btn btn-yes" onclick="acceptForgiveness()">Bağışladım 🥰</button>
+                <button class="btn btn-no" id="runawayBtn" onmouseenter="dodgeButton()" onclick="dodgeButton()">Hələ düşünürəm... 😜</button>
             </div>
-            <div class="response-msg" id="thankYouMsg">
-                Çox təşəkkür edirəm! Sən dünyadakı ən yaxşı dostsan! 🌸💖
+
+            <div class="celebration-msg" id="celebMsg">
+                Sən dünyadakı ən dəyərli dostsan! 🎉💖✨
             </div>
         </div>
     </div>
 
     <script>
-        // Open Gift Box Logic
-        function openBox() {
-            const container = document.getElementById('mainContainer');
-            const card = document.getElementById('giftCard');
+        // Message Content
+        const messageText = "Zara, bilmirəm haradan başlayım... Səni incitdiyim hər bir an üçün ürəkdən təəssüf edirəm. Sənin dostluğun, gülüşün və mənə qatdığın dəyər hər şeydən üstündür. Bu balaca səhifə sadəcə bir özür deyil, sənə olan dəyərimin kiçik bir ifadəsidir. Ümid edirəm ki, məni bağışlayarsan! ✨🌸";
+
+        let typingIndex = 0;
+
+        // Open Envelope Function
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const flap = document.getElementById('flap');
+            const letterCard = document.getElementById('letterCard');
+
+            flap.style.transform = 'rotateX(180deg)';
             
-            container.classList.add('open');
             setTimeout(() => {
-                card.classList.add('active');
-                createExplosion();
-            }, 300);
+                envelope.style.opacity = '0';
+                envelope.style.transform = 'scale(0.8) translateY(-50px)';
+                
+                setTimeout(() => {
+                    envelope.style.display = 'none';
+                    letterCard.classList.add('active');
+                    startTyping();
+                    triggerBurst(window.innerWidth / 2, window.innerHeight / 2);
+                }, 400);
+            }, 500);
         }
 
-        function acceptApology() {
-            const msg = document.getElementById('thankYouMsg');
-            msg.style.display = 'block';
-            createExplosion();
+        // Typewriter Effect
+        function startTyping() {
+            const container = document.getElementById('typewriterText');
+            if (typingIndex < messageText.length) {
+                container.innerHTML += messageText.charAt(typingIndex);
+                typingIndex++;
+                setTimeout(startTyping, 35);
+            }
         }
 
-        // Floating Hearts & Petals Canvas
-        const canvas = document.getElementById('particleCanvas');
+        // Dodging "No" Button Logic
+        function dodgeButton() {
+            const btn = document.getElementById('runawayBtn');
+            const wrapper = document.getElementById('btnGroup');
+            
+            const maxX = wrapper.clientWidth - btn.clientWidth;
+            const maxY = 120; // Allow moving up/down slightly
+
+            const randomX = Math.floor(Math.random() * (maxX + 100)) - 50;
+            const randomY = Math.floor(Math.random() * maxY) - 60;
+
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // Accept Forgiveness & Celebrate
+        function acceptForgiveness() {
+            document.getElementById('btnGroup').style.display = 'none';
+            document.getElementById('celebMsg').style.display = 'block';
+            
+            // Big Celebration Fireworks Burst
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    triggerBurst(
+                        Math.random() * window.innerWidth,
+                        Math.random() * (window.innerHeight * 0.7)
+                    );
+                }, i * 250);
+            }
+        }
+
+        /* --- Canvas Effects: Cursor Trail, Floating Hearts & Fireworks --- */
+        const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
@@ -282,25 +327,25 @@
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffffff'];
+        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffffff', '#ff1493'];
 
         class Particle {
             constructor(x, y, isBurst = false) {
                 this.x = x || Math.random() * canvas.width;
-                this.y = y || (isBurst ? canvas.height / 2 : canvas.height + 20);
-                this.size = Math.random() * 12 + 6;
-                this.speedY = isBurst ? (Math.random() - 0.5) * 10 : -Math.random() * 1.8 - 0.5;
-                this.speedX = isBurst ? (Math.random() - 0.5) * 10 : Math.random() * 1 - 0.5;
+                this.y = y || canvas.height + 20;
+                this.size = Math.random() * 10 + 4;
+                this.speedY = isBurst ? (Math.random() - 0.5) * 12 : -Math.random() * 1.5 - 0.5;
+                this.speedX = isBurst ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 1;
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.opacity = Math.random() * 0.7 + 0.3;
+                this.opacity = Math.random() * 0.8 + 0.2;
                 this.isBurst = isBurst;
                 this.rotation = Math.random() * 360;
             }
 
             update() {
-                this.y += this.speedY;
                 this.x += this.speedX;
-                this.rotation += 1;
+                this.y += this.speedY;
+                this.rotation += 1.5;
 
                 if (this.isBurst) {
                     this.opacity -= 0.015;
@@ -317,28 +362,38 @@
                 ctx.globalAlpha = Math.max(0, this.opacity);
                 ctx.fillStyle = this.color;
                 
-                // Draw Heart
+                // Draw Glowing Heart
                 ctx.beginPath();
-                const topCurveHeight = this.size * 0.3;
-                ctx.moveTo(0, topCurveHeight);
-                ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
-                ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
-                ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
-                ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
-                ctx.closePath();
+                const s = this.size;
+                ctx.moveTo(0, s * 0.3);
+                ctx.bezierCurveTo(0, 0, -s/2, 0, -s/2, s*0.3);
+                ctx.bezierCurveTo(-s/2, s*0.75, 0, s, 0, s);
+                ctx.bezierCurveTo(0, s, s/2, s*0.75, s/2, s*0.3);
+                ctx.bezierCurveTo(s/2, 0, 0, 0, 0, s*0.3);
                 ctx.fill();
                 ctx.restore();
             }
         }
 
-        // Initial continuous background particles
-        for (let i = 0; i < 35; i++) {
+        // Ambient Floating Particles
+        for (let i = 0; i < 30; i++) {
             particles.push(new Particle());
         }
 
-        function createExplosion() {
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(canvas.width / 2, canvas.height / 2, true));
+        // Cursor Sparkle Trail
+        window.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.4) {
+                const p = new Particle(e.clientX, e.clientY, true);
+                p.speedY = (Math.random() - 0.5) * 2;
+                p.speedX = (Math.random() - 0.5) * 2;
+                p.size = Math.random() * 6 + 3;
+                particles.push(p);
+            }
+        });
+
+        function triggerBurst(x, y) {
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle(x, y, true));
             }
         }
 
