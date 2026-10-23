@@ -3,412 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zara üçün Sehrli Sürpriz ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Zara üçün Xüsusi Məktub 💖</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at center, #fff0f5 0%, #ffc0cb 50%, #ffb6c1 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            overflow: hidden;
+            position: relative;
         }
-
-        /* Fullscreen Canvas for Background Particles & Fireworks */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .main-wrapper {
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
             position: relative;
             z-index: 10;
-            width: 100%;
-            max-width: 520px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            border: 2px solid #ffb6c1;
+            backdrop-filter: blur(5px);
         }
-
-        /* Interactive Magic Envelope */
-        .envelope-container {
-            width: 280px;
-            height: 190px;
-            background: #ffffff;
-            border-radius: 16px;
-            position: relative;
-            box-shadow: 0 20px 45px rgba(255, 20, 147, 0.25);
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #ffe4e1;
-        }
-
-        .envelope-container:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(255, 20, 147, 0.35);
-        }
-
-        /* Envelope Flap Top */
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-top: 105px solid #ffb6c1;
-            transform-origin: top;
-            transition: transform 0.6s ease;
-            z-index: 3;
-        }
-
-        /* Wax Seal Stamp */
-        .wax-seal {
-            position: absolute;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, #ff1493, #c71585);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: 26px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 4;
-            border: 2px solid #ffffff;
-            animation: pulseGlow 2s infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 20, 147, 0.6); }
-            50% { box-shadow: 0 0 25px rgba(255, 20, 147, 0.9); }
-        }
-
-        .envelope-hint {
-            position: absolute;
-            bottom: -45px;
-            color: #d81b60;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            animation: bounceText 1.6s infinite;
-        }
-
-        @keyframes bounceText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        /* Letter Reveal Glassmorphism Card */
-        .letter-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 182, 193, 0.8);
-            border-radius: 28px;
-            padding: 35px 30px;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(255, 20, 147, 0.25);
-            width: 100%;
-            display: none;
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .letter-card.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 42px;
-            color: #ff1493;
+        h1 {
+            color: #d63384;
+            font-size: 24px;
             margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
-
-        .typing-container {
-            font-family: 'Playfair Display', serif;
-            color: #4a4a4a;
-            font-size: 16px;
-            line-height: 1.8;
-            min-height: 120px;
+        p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
             margin-bottom: 25px;
-            text-align: left;
-            background: #fff8f9;
-            padding: 20px;
-            border-radius: 16px;
-            border-left: 4px solid #ff69b4;
         }
-
-        /* Action Buttons */
-        .btn-wrapper {
+        .buttons {
             display: flex;
-            gap: 15px;
             justify-content: center;
             align-items: center;
+            gap: 15px;
             position: relative;
             min-height: 50px;
         }
-
         .btn {
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: 600;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
             border: none;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease;
         }
-
         .btn-yes {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: #ffffff;
-            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.35);
+            background-color: #ff4757;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
         }
-
         .btn-yes:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 25px rgba(255, 20, 147, 0.5);
+            transform: scale(1.1);
+            background-color: #ff6b81;
         }
-
         .btn-no {
-            background: #ffffff;
-            color: #ff1493;
-            border: 2px solid #ffc0cb;
+            background-color: #ced6e0;
+            color: #2f3542;
             position: absolute;
             right: 20px;
         }
-
-        /* Celebration Screen */
-        .celebration-msg {
+        .success-message {
             display: none;
             margin-top: 20px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 32px;
-            color: #ff1493;
-            animation: popIn 0.6s ease;
+            color: #d63384;
+            font-weight: bold;
+            font-size: 18px;
+            animation: fadeIn 0.8s ease-in-out;
         }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b81;
+            animation: float 4s linear infinite;
+            opacity: 0.7;
+            user-select: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bgCanvas"></canvas>
-
-    <div class="main-wrapper">
-        <!-- Interactive Envelope -->
-        <div class="envelope-container" id="envelope" onclick="openEnvelope()">
-            <div class="envelope-flap" id="flap"></div>
-            <div class="wax-seal">Z</div>
-            <div class="envelope-hint">Zərfə toxun və aç ✨</div>
+    <div class="card">
+        <h1>Zara, məni bağışlayarsan? 🥺🌸</h1>
+        <p>
+            Sənə qarşı etdiyim səhvə görə həqiqətən çox peşmanam sonuncu insansanki xetrive deymek istiyim bagislamaq veya bagislamamaq sene qalib bagislamagin umidi ile ✌️
+        </p>
+        
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="forgive()">Bəli, bağışlayıram! 💕</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Xeyr 🙈</button>
         </div>
 
-        <!-- Hidden Letter Card -->
-        <div class="letter-card" id="letterCard">
-            <h1 class="title">Əziz Zara 💖</h1>
-            
-            <div class="typing-container" id="typewriterText"></div>
-
-            <div class="btn-wrapper" id="btnGroup">
-                <button class="btn btn-yes" onclick="acceptForgiveness()">Bağışladım 🥰</button>
-                <button class="btn btn-no" id="runawayBtn" onmouseenter="dodgeButton()" onclick="dodgeButton()">Hələ düşünürəm... 😜</button>
-            </div>
-
-            <div class="celebration-msg" id="celebMsg">
-                 :D
-            </div>
+        <div class="success-message" id="successMsg">
+            🎉 
         </div>
     </div>
 
     <script>
-        // Message Content
-        const messageText = "Zara, bilmirəm haradan başlayım... Səni incitdiyim hər bir an üçün ürəkdən təəssüf edirəm. Sənin dostluğun, gülüşün və mənə qatdığın dəyər hər şeydən üstündür. Bu balaca səhifə sadəcə bir özür deyil, sənə olan dəyərimin kiçik bir ifadəsidir. Ümid edirəm ki, məni bağışlayarsan! ✨🌸";
+        // Arxa fonda uçuşan ürəklər
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '🌸';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            document.body.appendChild(heart);
 
-        let typingIndex = 0;
-
-        // Open Envelope Function
-        function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const flap = document.getElementById('flap');
-            const letterCard = document.getElementById('letterCard');
-
-            flap.style.transform = 'rotateX(180deg)';
-            
             setTimeout(() => {
-                envelope.style.opacity = '0';
-                envelope.style.transform = 'scale(0.8) translateY(-50px)';
-                
-                setTimeout(() => {
-                    envelope.style.display = 'none';
-                    letterCard.classList.add('active');
-                    startTyping();
-                    triggerBurst(window.innerWidth / 2, window.innerHeight / 2);
-                }, 400);
-            }, 500);
+                heart.remove();
+            }, 4000);
         }
+        setInterval(createHeart, 300);
 
-        // Typewriter Effect
-        function startTyping() {
-            const container = document.getElementById('typewriterText');
-            if (typingIndex < messageText.length) {
-                container.innerHTML += messageText.charAt(typingIndex);
-                typingIndex++;
-                setTimeout(startTyping, 35);
-            }
-        }
-
-        // Dodging "No" Button Logic
-        function dodgeButton() {
-            const btn = document.getElementById('runawayBtn');
-            const wrapper = document.getElementById('btnGroup');
+        // "Xeyr" düyməsinin qaçması
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 60);
             
-            const maxX = wrapper.clientWidth - btn.clientWidth;
-            const maxY = 120; // Allow moving up/down slightly
-
-            const randomX = Math.floor(Math.random() * (maxX + 100)) - 50;
-            const randomY = Math.floor(Math.random() * maxY) - 60;
-
-            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
         }
 
-        // Accept Forgiveness & Celebrate
-        function acceptForgiveness() {
-            document.getElementById('btnGroup').style.display = 'none';
-            document.getElementById('celebMsg').style.display = 'block';
-            
-            // Big Celebration Fireworks Burst
-            for(let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    triggerBurst(
-                        Math.random() * window.innerWidth,
-                        Math.random() * (window.innerHeight * 0.7)
-                    );
-                }, i * 250);
+        // "Bəli" kliklənəndə
+        function forgive() {
+            document.getElementById('successMsg').style.display = 'block';
+            document.querySelector('.buttons').style.display = 'none';
+
+            // Ekranı ürək yağışına tutmaq
+            for(let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 40);
             }
         }
-
-        /* --- Canvas Effects: Cursor Trail, Floating Hearts & Fireworks --- */
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const particles = [];
-        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffffff', '#ff1493'];
-
-        class Particle {
-            constructor(x, y, isBurst = false) {
-                this.x = x || Math.random() * canvas.width;
-                this.y = y || canvas.height + 20;
-                this.size = Math.random() * 10 + 4;
-                this.speedY = isBurst ? (Math.random() - 0.5) * 12 : -Math.random() * 1.5 - 0.5;
-                this.speedX = isBurst ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 1;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.opacity = Math.random() * 0.8 + 0.2;
-                this.isBurst = isBurst;
-                this.rotation = Math.random() * 360;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.rotation += 1.5;
-
-                if (this.isBurst) {
-                    this.opacity -= 0.015;
-                } else if (this.y < -20) {
-                    this.y = canvas.height + 20;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate((this.rotation * Math.PI) / 180);
-                ctx.globalAlpha = Math.max(0, this.opacity);
-                ctx.fillStyle = this.color;
-                
-                // Draw Glowing Heart
-                ctx.beginPath();
-                const s = this.size;
-                ctx.moveTo(0, s * 0.3);
-                ctx.bezierCurveTo(0, 0, -s/2, 0, -s/2, s*0.3);
-                ctx.bezierCurveTo(-s/2, s*0.75, 0, s, 0, s);
-                ctx.bezierCurveTo(0, s, s/2, s*0.75, s/2, s*0.3);
-                ctx.bezierCurveTo(s/2, 0, 0, 0, 0, s*0.3);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Ambient Floating Particles
-        for (let i = 0; i < 30; i++) {
-            particles.push(new Particle());
-        }
-
-        // Cursor Sparkle Trail
-        window.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.4) {
-                const p = new Particle(e.clientX, e.clientY, true);
-                p.speedY = (Math.random() - 0.5) * 2;
-                p.speedX = (Math.random() - 0.5) * 2;
-                p.size = Math.random() * 6 + 3;
-                particles.push(p);
-            }
-        });
-
-        function triggerBurst(x, y) {
-            for (let i = 0; i < 40; i++) {
-                particles.push(new Particle(x, y, true));
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = particles.length - 1; i >= 0; i--) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].isBurst && particles[i].opacity <= 0) {
-                    particles.splice(i, 1);
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
     </script>
 </body>
-</html> 
+</html>
